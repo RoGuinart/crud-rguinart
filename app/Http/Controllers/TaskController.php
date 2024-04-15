@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\task;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 
@@ -11,7 +12,7 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
         $tasks = Task::latest()->paginate(3);
         return view('index', ['tasks' => $tasks]);
@@ -20,7 +21,7 @@ class TaskController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
         return view('create');
     }
@@ -49,17 +50,23 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(task $task)
+    public function edit(task $task): View
     {
-        //
+        return view('edit', ['task' => $task]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, task $task)
+    public function update(Request $request, task $task): RedirectResponse
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required'
+        ]);
+        $task->update($request->all());
+        return redirect()->
+            route('tasks.index')->with('success','Tarea actualizada con éxito');
     }
 
     /**

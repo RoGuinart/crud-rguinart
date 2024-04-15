@@ -37,7 +37,7 @@
                             <span class="badge bg-warning fs-6">{{$task->status}}</span>
                         </td>
                         <td>
-                            <a href="" class="btn btn-warning">Editar</a>
+                            <a href="{{route('tasks.edit', $task->id)}}" class="btn btn-warning">Editar</a>
 
                             <form action="" method="post" class="d-inline">
                                 <button type="submit" class="btn btn-danger">Eliminar</button>
