@@ -36,7 +36,8 @@ class TaskController extends Controller
             'description' => 'required'
         ]);
         Task::create($request->all());
-        return redirect()->route('tasks.index')->with('success', 'Tarea creada con éxito');
+        return redirect()->
+            route('tasks.index')->with('success','Tarea creada con éxito');
     }
 
     /**
@@ -74,6 +75,8 @@ class TaskController extends Controller
      */
     public function destroy(task $task)
     {
-        //
+        $task->delete();
+        return redirect()->
+            route('tasks.index')->with('success','Tarea eliminada con éxito');
     }
 }
