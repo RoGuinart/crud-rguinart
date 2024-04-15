@@ -12,7 +12,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return view('index');
+        return view('tasks.index');
     }
 
     /**
@@ -28,7 +28,8 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Task::create($request->all());
+        return redirect()->route('tasks.index');
     }
 
     /**
